@@ -1,0 +1,60 @@
+# Folders
+/Aerrata/*
+/KoishiUS/*
+/Patch/*
+/Custom Archtypes/*
+/mse-set/*
+/ygorepos/*
+/ygocdbs/*
+/script/c515959000.lua
+/script/c515959003.lua
+/*/pics
+/pics
+# Files
+KPro_Printer.zip
+
+# Compiled Lua sources
+luac.out
+
+# luarocks build files
+*.src.rock
+*.tar.gz
+
+# Object files
+*.yaml
+*.txt
+*.cdbz
+*.o
+*.os
+*.ko
+*.obj
+*.elf
+*.bak
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.def
+*.exp
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.bat
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
