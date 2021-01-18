@@ -1,4 +1,8 @@
+# No more updates...F to yugioh, damn bad designed game, thanks konami.
+---
+
 # Ygopro Expansion 
+---
 
 `Supports Koishipro and Ygopro2 (koishi or fluorhide's lastest core)`
 
