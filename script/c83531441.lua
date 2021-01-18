@@ -1,7 +1,7 @@
 --彼岸の旅人 ダンテ
 function c83531441.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_FIEND),3,2)
+	aux.AddXyzProcedure(c,nil,3,2)
 	c:EnableReviveLimit()
 	--atkup
 	local e1=Effect.CreateEffect(c)
@@ -42,7 +42,7 @@ function c83531441.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 			table.insert(ct,i)
 		end
 	end
-	if #ct==1 then 
+	if #ct==1 then
 		Duel.DiscardDeck(tp,ct[1],REASON_COST)
 		e:SetLabel(1)
 	else

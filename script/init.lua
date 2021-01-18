@@ -57,6 +57,62 @@ if not global_card_effect_table_global_check then
         self.register_global_card_effect_table(self,e)
     end
 end
+function ToBool(vaule)
+    return vaule~= (nil or 0)
+end
+function Card.IsCanBeSpecialSummoned(...)
+    local params={...}
+    -- check_param_count(L, 6);
+    -- check_param(L, PARAM_TYPE_CARD, 1);
+    -- check_param(L, PARAM_TYPE_EFFECT, 2);
+    -- card* pcard = *(card**) lua_touserdata(L, 1);
+    -- effect* peffect = *(effect**) lua_touserdata(L, 2);
+    -- uint32 sumtype = (uint32)lua_tointeger(L, 3);
+    -- uint32 sumplayer = (uint32)lua_tointeger(L, 4);
+    -- uint32 nocheck = lua_toboolean(L, 5);
+    -- uint32 nolimit = lua_toboolean(L, 6);
+    -- uint32 sumpos = POS_FACEUP;
+    -- uint32 toplayer = sumplayer;
+    -- uint32 zone = 0xff;
+    -- if(lua_gettop(L) >= 7)
+    --     sumpos = (uint32)lua_tointeger(L, 7);
+    -- if(lua_gettop(L) >= 8)
+    --     toplayer = (uint32)lua_tointeger(L, 8);
+    -- if(lua_gettop(L) >= 9)
+    --     zone = (uint32)lua_tointeger(L, 9);
+    -- if(pcard->is_can_be_special_summoned(peffect, sumtype, sumpos, sumplayer, toplayer, nocheck, nolimit, zone))
+    --     lua_pushboolean(L, 1);
+    -- else
+    --     lua_pushboolean(L, 0);
+    -- return 1;
+    function params.check_param_count(table,count)
+        if #table < count then
+            print(string.format("%d Parameters are needed.", count))
+            return true
+        end
+    end
+    params:check_param_count(6)
+    local pcard = params[1]
+    local peffect = params[2]
+    local sumtype = tonumber(params[3])
+    local sumplayer = tonumber(params[4])
+    local nocheck = ToBool(params[5])
+    local nolimit = ToBool(params[6])
+    local sumpos = POS_FACEUP
+    local toplayer = sumplayer
+    local zone = 0xff;
+    if params[7] then
+        sumpos = tonumber(params[7])
+    end
+    if params[8] then
+        toplayer = tonumber(params[8])
+    end
+    if params[9] then
+        zone = tonumber(params[9])
+    end
+    --[[insert rules here]]
+    return true
+end
 --MasterRule
 local function masterRule(tp)
     --check for negations

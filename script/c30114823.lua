@@ -22,44 +22,6 @@ function c30114823.initial_effect(c)
 	e3:SetOperation(c30114823.tdop)
 	c:RegisterEffect(e3)
 end
---temp update
-function Auxiliary.LExtraFilter(c,f,lc,tp)
-	if c:IsLocation(LOCATION_ONFIELD) and not c:IsFaceup() then return false end
-	if not c:IsCanBeLinkMaterial(lc) or f and not f(c) then return false end
-	local le={c:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-	for _,te in pairs(le) do
-		local tf=te:GetValue()
-		local related,valid=tf(te,lc,nil,c,tp)
-		if related then return true end
-	end
-	return false
-end
-function Auxiliary.LCheckOtherMaterial(c,mg,lc,tp)
-	local le={c:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-	local res1=false
-	local res2=true
-	for _,te in pairs(le) do
-		local f=te:GetValue()
-		local related,valid=f(te,lc,mg,c,tp)
-		if related then res2=false end
-		if related and valid then res1=true end
-	end
-	return res1 or res2
-end
-function Auxiliary.LExtraMaterialCount(mg,lc,tp)
-	for tc in aux.Next(mg) do
-		local le={tc:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-		for _,te in pairs(le) do
-			local sg=mg:Filter(aux.TRUE,tc)
-			local f=te:GetValue()
-			local related,valid=f(te,lc,sg,tc,tp)
-			if related and valid then
-				te:UseCountLimit(tp)
-			end
-		end
-	end
-end
---/temp update
 function c30114823.mfilter(c)
 	return c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_CYBERSE)
 end
@@ -73,8 +35,15 @@ end
 function c30114823.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	e:SetLabel(0)
-	if c:IsPreviousLocation(LOCATION_ONFIELD) then e:SetLabel(1) end
-	return c:IsLocation(LOCATION_GRAVE) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and r==REASON_LINK and c:GetReasonCard():IsSetCard(0x101)
+	if c:IsLocation(LOCATION_GRAVE) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and r==REASON_LINK and c:GetReasonCard():IsSetCard(0x101) then
+		if c:IsPreviousLocation(LOCATION_ONFIELD) then
+			e:SetLabel(1)
+			c:RegisterFlagEffect(0,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(30114823,1))
+		end
+		return true
+	else
+		return false
+	end
 end
 function c30114823.tdfilter(c,chk)
 	return c:IsRace(RACE_CYBERSE) and c:IsAttackBelow(1200) and (c:IsAbleToGrave() or (chk==1 and c:IsAbleToHand()))

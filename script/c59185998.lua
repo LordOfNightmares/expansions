@@ -23,44 +23,6 @@ function c59185998.initial_effect(c)
 	e2:SetOperation(c59185998.thop)
 	c:RegisterEffect(e2)
 end
---temp update
-function Auxiliary.LExtraFilter(c,f,lc,tp)
-	if c:IsLocation(LOCATION_ONFIELD) and not c:IsFaceup() then return false end
-	if not c:IsCanBeLinkMaterial(lc) or f and not f(c) then return false end
-	local le={c:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-	for _,te in pairs(le) do
-		local tf=te:GetValue()
-		local related,valid=tf(te,lc,nil,c,tp)
-		if related then return true end
-	end
-	return false
-end
-function Auxiliary.LCheckOtherMaterial(c,mg,lc,tp)
-	local le={c:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-	local res1=false
-	local res2=true
-	for _,te in pairs(le) do
-		local f=te:GetValue()
-		local related,valid=f(te,lc,mg,c,tp)
-		if related then res2=false end
-		if related and valid then res1=true end
-	end
-	return res1 or res2
-end
-function Auxiliary.LExtraMaterialCount(mg,lc,tp)
-	for tc in aux.Next(mg) do
-		local le={tc:IsHasEffect(EFFECT_EXTRA_LINK_MATERIAL,tp)}
-		for _,te in pairs(le) do
-			local sg=mg:Filter(aux.TRUE,tc)
-			local f=te:GetValue()
-			local related,valid=f(te,lc,sg,tc,tp)
-			if related and valid then
-				te:UseCountLimit(tp)
-			end
-		end
-	end
-end
---/temp update
 function c59185998.mfilter(c)
 	return c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x103)
 end

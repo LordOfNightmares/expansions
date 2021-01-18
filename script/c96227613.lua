@@ -46,7 +46,7 @@ function cm.initial_effect(c)
 	e3:SetOperation(cm.spop)
 	c:RegisterEffect(e3)
 	--pendulum
-	local e4=Effect.CreateEffect(c)
+	--[[local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(m,2))
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_DESTROYED)
@@ -54,7 +54,7 @@ function cm.initial_effect(c)
 	e4:SetCondition(cm.pencon)
 	e4:SetTarget(cm.pentg)
 	e4:SetOperation(cm.penop)
-	c:RegisterEffect(e4)
+	c:RegisterEffect(e4)]]
 end
 function cm.ndcfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf8)
