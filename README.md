@@ -1,6 +1,4 @@
 # No more updates...F to yugioh, damn bad designed game, thanks konami.
----
-
 # Ygopro Expansion 
 ---
 
